@@ -102,9 +102,7 @@ Main Styles
   animation: bounce 2s ease-in-out infinite;
 }
 
-.searchbar{
-  display: none;
-}
+
 
 /*
 =============== 
@@ -115,4 +113,3 @@ Weather Background
   /* justify-self: center; */
   /* height: min-content; */
 }
-
