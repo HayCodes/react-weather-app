@@ -1,6 +1,8 @@
+import { useState } from 'react';
+
 const Main = () => {
     return (
-        <div className="overflow-scroll w-full flex flex-col xl:px[100px] xl:h-screen bg-color-primary-dark">
+        <div className="overflow-scroll overflow-x-hidden w-full flex flex-col xl:px[100px] xl:h-screen bg-color-primary-dark">
            <div className="flex flex-row items-center justify-end gap-3 mt-[20px] px-10 xl:px-">
                 <button type="button" className="rounded-full h-[40px] w-[40px]font-bold text-lg text-white px-3 py-0 bg-[#A09FB1]">
                 °C
@@ -79,7 +81,7 @@ const Main = () => {
             </div>
             
             <div className="px-[21px] mt-[10px] mb-[8px] xl:px-8 xl:mt-[21px] xl:mb-[12px]">
-                <h3 className="text-color-white text-2xl font-bold mb-[10px]"> Today's Highlights</h3>
+                <h3 className="text-color-white text-2xl font-bold mb-[10px] text-left "> Today's Highlights</h3>
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                     <div className="bg-color-primary-light flex flex-col justify-center items-center p-[22px]">
                         <h4 className="text-color-white font-medium">Wind Status</h4>

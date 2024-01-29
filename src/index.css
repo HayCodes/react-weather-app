@@ -82,15 +82,6 @@ h4 {
 Main Styles
 ===============
 */
-.sidebar {
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  transition: var(--transition);
-  /* transform: translate(-100%); */
-}
-
 .sidebar-header {
   display: flex;
   justify-content: space-between;
@@ -100,16 +91,4 @@ Main Styles
 
 .sidebar-toggle {
   animation: bounce 2s ease-in-out infinite;
-}
-
-
-
-/*
-=============== 
-Weather Background
-===============
-*/
-.weather{
-  /* justify-self: center; */
-  /* height: min-content; */
 }

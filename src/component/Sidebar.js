@@ -1,34 +1,56 @@
 import { useState, useEffect } from "react";
-import LocationSearchInput from "./LocInput";
+// import axios from 'axios'; what i used previously
+import { AsyncPaginate } from "react-select-async-paginate";
+import { GEO_API_URL, geoApiOptions } from "../../src/api";
 
-const Sidebar = () => {
+
+const Sidebar = ({ onSearchChange }) => {
   const [searchBar, setSearchBar] = useState(false);
 
-  const getCountries = async () => {
-    
-    return;
-  };
+  const [search, setSearch] = useState(null);
 
-  const fetchWeather = (lat, lon) => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid="087b1487a92f22b3f24f1a9440660a25"`
-    )
-      .then((response) => response.json())
-      .then((data) => console.log(data));
-  };
+  const handleOnChange = (searchData) => {
+    setSearch(searchData);
+    onSearchChange(searchData);
+  }
 
-  // 473bee0ee0cb4dd89bb7f9b0373c3b90
+  const loadOptions = (inputValue) => {
+    return fetch(`${GEO_API_URL}/cities?minPopulation=1000000&namePrefix=${inputValue}`, geoApiOptions)
+      .then(response => response.json())
+      .then(response => {
+        return {
+          options: response.data.map((city) => {
+            return {
+              value: `${city.latitude} ${city.longitude}`,
+              label: `${city.name}, ${city.countryCode}`,
+            }
+          })
+        }
+      })
+      .catch(err => console.error(err));
+  }
 
-//   useEffect(() => {
-//     getCountries();
-//   }, []);
+  //   const [data, setData] = useState({});
+  //   const [location, setLocation] = useState('');
+
+
+  //   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=5574fd253b882f1ebbef94f3a1abcc82`;
+
+  //   const searchLocation = (event) => {
+  //     if (event.key === 'Enter') {
+  //         axios.get(url).then((response) => {
+  //             setData(response.data)
+  //             console.log(response.data)
+  //         })
+  //         setLocation('')
+  //     }
+  //   }
 
   return (
-    <div className="sidebar bg-color-primary-light w-full sticky flex flex-col min-h-80vh px-[11px] py-[18px] lg:max-w-[400px] md:p-[10px]">
+    <div className="sidebar bg-color-primary-light w-full flex flex-col min-h-80vh px-[11px] py-[18px] lg:max-w-[400px] md:p-[10px] top-0 left-0 md:sticky">
       <aside
-        className={`bg-color-primary-light z-50 top-0 left-0 h-screen w-full flex flex-col px-2 py-[10px] md:px-[47px] duration-300 translate-x-0 xl:absolute xl:px-[46px] searchbar ${
-          searchBar ? "block" : "hidden"
-        }`}
+        className={`bg-color-primary-light z-50 top-0 left-0 h-screen w-full flex flex-col px-2 py-[10px] md:px-[47px] duration-300 translate-x-0 xl:absolute xl:px-[46px] searchbar ${searchBar ? "block" : "hidden"
+          }`}
       >
         <button
           className="text-color-white self-end"
@@ -50,7 +72,7 @@ const Sidebar = () => {
           </svg>
         </button>
         <div className="mt-[38px] mb-[28px] flex flex-row items-center gap-3">
-          <div className="border-[1px] border-silver w-full h-[48px] flex flex-row items-center px-3 gap-[13px]">
+          {/* <div className="border-[1px] border-silver w-full h-[48px] flex flex-row items-center px-3 gap-[13px]">
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -63,14 +85,16 @@ const Sidebar = () => {
             >
               <path fill="none" d="M0 0h24v24H0z"></path>
               <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
-            </svg>
-            <input
-              placeholder="Search Location"
-              className="text-color-white text-base w-full font-small bg-color-primary-light hover:right-0 focus:ring-0 focus:outline-none hover:outline-none"
-              type="text"
-              id=""
-            />
-          </div>
+            </svg> */}
+          <AsyncPaginate
+            placeholder="Search Location"
+            debounceTimeout={600}
+            value={search}
+            onChange={handleOnChange}
+            loadOptions={loadOptions}
+            className="text-color-white text-base w-full font-small bg-color-primary-light hover:right-0 focus:ring-0 focus:outline-none hover:outline-none"
+          />
+          {/* </div> */}
           <button
             className="bg-[#3C47E9] disabled:bg-[#5D64CA] text-white hover:translate-y-2 duration-200 h-[48px] w-[86px] text-base font-semibold"
             id=""
@@ -81,13 +105,13 @@ const Sidebar = () => {
       </aside>
 
       <div className="sidebar-header">
-        <div className="bg-color-white rounded-md text-lg px-3 py-2 text-gray-300 hover:translate-y-2 duration-75 shadow-xl">
+        <div className="bg-color-white rounded-md text-lg px-3 py-2 text-gray-300 hover:translate-y-2 duration-75 hover:bg-opacity-10 shadow-xl">
           {/* button for toggling/open sidebar */}
           <button className="toggle-btn" onClick={() => setSearchBar(true)}>
             Search for places
           </button>
         </div>
-        <button className="compass-btn bg-color-white rounded-xl p-1 text-gray-300 shadow-xl">
+        <button className="compass-btn bg-color-white rounded-xl p-1 text-gray-300 shadow-xl hover:translate-y-2 duration-75 hover:bg-opacity-10">
           <svg
             stroke="currentColor"
             fill="currentColor"
@@ -104,14 +128,14 @@ const Sidebar = () => {
         </button>
       </div>
 
-      <div className="flex flex-col max-h-fit">
+      {/* <div className="flex flex-col max-h-fit">
         <img
           src="/images/Cloud-background.png"
           alt="cloud bg"
           loading="lazy"
           width="684"
           height="376"
-          className="absolute top-[60px] left-0 w-full bg-no-repeat bg-cover  opacity-10"
+          className="absolute top-[60px] left-0 w-full bg-no-repeat bg-cover  opacity-10 bg-center"
         ></img>
 
         <div className="self-center mt-[46px] mb-[10px] 2xl-mt-[76px]">
@@ -124,22 +148,21 @@ const Sidebar = () => {
           />
         </div>
 
-        <LocationSearchInput />
-
         <div className="temperature mt-5 text-white flex justify-center">
-          <p id="temp" className="text-[90px] md:text-[120px]">
-            -10
-          </p>
+          
+          {data.main ? <p id="temp" className="text-[90px] md:text-[120px]">
+            {data.main.temp.toFixed()}
+          </p> : null}
           <span className="temp-unit text-[40px] mt-6">°C</span>
         </div>
 
         <div className="temp-description">
-          <p
-            className=" text-gray-400 font-semibold text-2xl"
-            id="weather-type"
-          >
-            Clear Sky
-          </p>
+          { data.weather ?
+          <p className=" text-gray-400 font-semibold text-2xl text-center"
+            id="weather-type">
+            {data.weather[0].main}
+          </p> : null
+          }
         </div>
 
         <div
@@ -164,9 +187,9 @@ const Sidebar = () => {
           >
             <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"></path>
           </svg>
-          <span className="font-semibold">Ilorin</span>
+          <span className="font-semibold">{data.name}</span>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
