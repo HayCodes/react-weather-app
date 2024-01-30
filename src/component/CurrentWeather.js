@@ -1,4 +1,7 @@
 import "../../src/index.css";
+import {useGeolocated} from "react-geolocated"
+import { WEATHER_API_KEY, WEATHER_API_URL } from '../api';
+import {useState, useEffect} from "react"
 
 const date = new Date();
 
@@ -17,7 +20,26 @@ const formattedDate = date.toLocaleDateString('en-US', dateOptions);
 const formattedTime = date.toLocaleTimeString('en-US', timeOptions);
 
 
+
 const CurrentWeather = ({data}) => {
+
+
+  const {coords} = useGeolocated();
+
+   
+  useEffect(() => {
+  
+  const fetchWeatherData = async () => {
+    const apiKey = {WEATHER_API_KEY};
+    const url = {WEATHER_API_URL};
+    const response = await fetch(url);
+    const data =  await response.json();
+    return data;
+  }
+  },[])
+
+      const [weatherData, setWeatherData] = useState(null)
+      
     return ( 
         <div className="flex flex-col max-h-fit">
         <img
@@ -26,14 +48,14 @@ const CurrentWeather = ({data}) => {
           loading="lazy"
           width="684"
           height="376"
-          className="absolute top-[60px] left-0 w-full bg-no-repeat bg-cover  opacity-10 bg-center"
+          className="absolute top-[60px] left-0 w-full bg-no-repeat bg-cover  opacity-5 bg-center"
         ></img>
 
         <div className="self-center mt-[46px] mb-[10px] 2xl-mt-[76px]">
           <img
             src={`/icons/${data.weather[0].icon}.png`}
             alt="weather"
-            className="weather-icon"
+            className="bounce"
             width="150"
             height="167"
           />

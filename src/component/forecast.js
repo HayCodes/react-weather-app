@@ -4,15 +4,13 @@ const Forecast = ({ data }) => {
     const dayInAWeek = new Date().getDay();
     const forecastDays = WEEK_DAYS.slice(dayInAWeek, WEEK_DAYS.length).concat(WEEK_DAYS.slice(0, dayInAWeek));
 
-    console.log(forecastDays);
-
     return (
         <div className="">
             <div className="flex flex-row items-center justify-end gap-3 mt-[20px] px-10 xl:px-">
                 <button type="button" className="rounded-full h-[40px] w-[40px]font-bold text-lg text-white px-3 py-0 bg-[#A09FB1]">
                     °C
                 </button>
-                <button type="button" className="rounded-full h-[40px] w-[40px]font-bold text-lg px-3 py-0 text-white bg-[#585676]">
+                <button type="button" className="rounded-full h-[40px] w-[40px]font-bold text-lg px-3 py-0 text-white bg-[#585676] active:bg-[#A09FB1]">
                     °F
                 </button>
             </div>

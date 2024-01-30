@@ -25,8 +25,8 @@ function App() {
       })
       .catch((err) => console.log(err));
   }
-  console.log(currentWeather);
-  console.log(forecast);
+  // console.log(currentWeather);
+  // console.log(forecast);
 
   return (
     <div className="App flex flex-col md:flex-row lg:flex-row min-h-screen">
@@ -35,9 +35,9 @@ function App() {
         {currentWeather && <CurrentWeather data={currentWeather} />}
       </div>
 
-      <div className="overflow-scroll overflow-x-hidden w-full flex flex-col xl:px-[100px] xl:h-screen bg-color-primary-dark">
+      <div className="overflow-hidden overflow-x-hidden w-full flex flex-col xl:px-[100px] xl:h-screen bg-color-primary-dark md:overflow-scroll lg:overflow-scroll lg:overflow-x-hidden">
         {forecast && <Forecast  data={forecast} /> }
-        {currentWeather && <Main data={currentWeather} />}
+        {currentWeather && <Main data={currentWeather} />} 
       </div>
     </div>
   );

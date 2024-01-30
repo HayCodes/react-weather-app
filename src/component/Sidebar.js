@@ -30,6 +30,19 @@ const Sidebar = ({ onSearchChange }) => {
       .catch(err => console.error(err));
   }
 
+  // const handleLocationClick = () => {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition((position) => {
+  //       let lat = position.coords.latitude;
+  //       let lon = position.coords.longitude;
+  //       console.log("Latitude:", lat)
+  //       console.log("Longitude:", lon)
+  //     });
+  //   } else {
+  //     console.error('Geolocation is not supported by this browser.')
+  //   }
+  // }
+
   return (
       <div className="">
       <aside
