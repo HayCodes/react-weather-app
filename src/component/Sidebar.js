@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 // import axios from 'axios'; what i used previously
 import { AsyncPaginate } from "react-select-async-paginate";
 import { GEO_API_URL, geoApiOptions } from "../../src/api";
-import CurrentWeather from "./CurrentWeather";
 
 
 const Sidebar = ({ onSearchChange }) => {
@@ -31,26 +30,10 @@ const Sidebar = ({ onSearchChange }) => {
       .catch(err => console.error(err));
   }
 
-  //   const [data, setData] = useState({});
-  //   const [location, setLocation] = useState('');
-
-
-  //   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=5574fd253b882f1ebbef94f3a1abcc82`;
-
-  //   const searchLocation = (event) => {
-  //     if (event.key === 'Enter') {
-  //         axios.get(url).then((response) => {
-  //             setData(response.data)
-  //             console.log(response.data)
-  //         })
-  //         setLocation('')
-  //     }
-  //   }
-
   return (
-    <div className="sidebar bg-color-primary-light w-full flex flex-col min-h-80vh px-[11px] py-[18px] lg:max-w-[400px] md:p-[10px] top-0 left-0 md:sticky">
+      <div className="">
       <aside
-        className={`bg-color-primary-light z-50 top-0 left-0 h-screen w-full flex flex-col px-2 py-[10px] md:px-[47px] duration-300 translate-x-0 xl:absolute xl:px-[46px] searchbar ${searchBar ? "block" : "hidden"
+        className={`bg-color-primary-light z-99 top-0 left-0 h-screen w-full flex flex-col px-2 py-[10px] md:px-[47px] duration-300 translate-x-0 xl:absolute xl:px-[46px] searchbar ${searchBar ? "block" : "hidden"
           }`}
       >
         <button
@@ -73,20 +56,6 @@ const Sidebar = ({ onSearchChange }) => {
           </svg>
         </button>
         <div className="mt-[38px] mb-[28px] flex flex-row items-center gap-3">
-          {/* <div className="border-[1px] border-silver w-full h-[48px] flex flex-row items-center px-3 gap-[13px]">
-            <svg
-              stroke="currentColor"
-              fill="currentColor"
-              strokeWidth="0"
-              viewBox="0 0 24 24"
-              className="h-[24px] w-[24px]  text-white"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path fill="none" d="M0 0h24v24H0z"></path>
-              <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
-            </svg> */}
           <AsyncPaginate
             placeholder="Search Location"
             debounceTimeout={600}
@@ -127,11 +96,8 @@ const Sidebar = ({ onSearchChange }) => {
             <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0013 3.06V1h-2v2.06A8.994 8.994 0 003.06 11H1v2h2.06A8.994 8.994 0 0011 20.94V23h2v-2.06A8.994 8.994 0 0020.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"></path>
           </svg>
         </button>
+       </div>
       </div>
-    
-      <CurrentWeather />
-
-    </div>
   );
 };
 

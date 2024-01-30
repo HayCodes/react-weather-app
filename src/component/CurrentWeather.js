@@ -1,6 +1,23 @@
 import "../../src/index.css";
 
-const CurrentWeather = () => {
+const date = new Date();
+
+const dateOptions = {
+  weekday: 'long',
+  day: 'numeric',
+  year: 'numeric'
+};
+
+const timeOptions = {
+  hour: '2-digit',
+  minute: '2-digit'
+}
+
+const formattedDate = date.toLocaleDateString('en-US', dateOptions);
+const formattedTime = date.toLocaleTimeString('en-US', timeOptions);
+
+
+const CurrentWeather = ({data}) => {
     return ( 
         <div className="flex flex-col max-h-fit">
         <img
@@ -14,7 +31,7 @@ const CurrentWeather = () => {
 
         <div className="self-center mt-[46px] mb-[10px] 2xl-mt-[76px]">
           <img
-            src="/images/clear.png"
+            src={`/icons/${data.weather[0].icon}.png`}
             alt="weather"
             className="weather-icon"
             width="150"
@@ -24,14 +41,14 @@ const CurrentWeather = () => {
 
         <div className="temperature mt-5 text-white flex justify-center">
           <p id="temp" className="text-[90px] md:text-[120px]">
-            40
+            {Math.round(data.main.temp)}
           </p>
           <span className="temp-unit text-[40px] mt-6">°C</span>
         </div>
 
         <div className="temp-description">
-          <p className=" text-gray-400 font-semibold text-2xl text-center">
-            Clear
+          <p className=" text-gray-400 font-semibold text-2xl text-center capitalize">
+            {data.weather[0].description}
           </p>
         </div>
 
@@ -39,9 +56,9 @@ const CurrentWeather = () => {
           className="mt-10 text-gray-400 flex flex-row justify-center gap-2"
           id="date-time"
         >
-          <span>Monday</span>
+          <span>{formattedDate}</span>
           <span>•</span>
-          <span>11:40PM</span>
+          <span>{formattedTime}</span>
         </div>
 
         <div className="flex flex-row gap-2 justify-center mt-8 text-gray-400">
@@ -57,7 +74,7 @@ const CurrentWeather = () => {
           >
             <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"></path>
           </svg>
-          <span className="font-semibold">Lagos</span>
+          <span className="font-semibold">{data.city} </span>
         </div>
       </div>
      );
