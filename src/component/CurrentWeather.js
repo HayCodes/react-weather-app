@@ -1,6 +1,6 @@
 import "../../src/index.css";
 import {useGeolocated} from "react-geolocated"
-import { WEATHER_API_KEY, WEATHER_API_URL } from '../api';
+import { WEATHER_API_KEY } from '../api';
 import {useState, useEffect} from "react"
 
 const date = new Date();
@@ -25,20 +25,22 @@ const CurrentWeather = ({data}) => {
 
 
   const {coords} = useGeolocated();
-
+  const [weatherData, setWeatherData] = useState(null)
    
   useEffect(() => {
-  
-  const fetchWeatherData = async () => {
-    const apiKey = {WEATHER_API_KEY};
-    const url = {WEATHER_API_URL};
-    const response = await fetch(url);
-    const data =  await response.json();
-    return data;
-  }
-  },[])
+    const fetchWeatherData = async () => {
+      const apiKey = {WEATHER_API_KEY};
+      if (coords) {
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=${apiKey}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        setWeatherData(data);
+      }
+    };
 
-      const [weatherData, setWeatherData] = useState(null)
+    fetchWeatherData();
+  }, [coords]);
+
       
     return ( 
         <div className="flex flex-col max-h-fit">
@@ -99,6 +101,7 @@ const CurrentWeather = ({data}) => {
           <span className="font-semibold">{data.city} </span>
         </div>
       </div>
+      
      );
 }
  

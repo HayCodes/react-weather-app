@@ -16,8 +16,8 @@ const Forecast = ({ data }) => {
             </div>
 
             <div>
-                {data.list.splice(0, 5).map((item, idx) => (
-                    <div className="px-10 py-9 grid grid-cols-2 gap-[22px] lg:grid-cols-4 xl:grid-cols-5 xl:px-8">
+                <div className="px-10 py-9 gap-[22px] grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 xl:px-8">
+                    {data.list.splice(0, 5).map((item, idx) => (
                         <div className="bg-color-primary-light py-[18px] px-2 flex flex-col justify-center items-center cursor-pointer duration-300 hover:translate-y-2">
                             <h4 className="text-color-white text-base font-medium leading-normal">{forecastDays[idx]}</h4>
 
@@ -32,8 +32,8 @@ const Forecast = ({ data }) => {
                                 </span>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>   
             </div>
         </div>
     );
